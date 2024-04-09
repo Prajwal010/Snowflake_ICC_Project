@@ -2,4 +2,8 @@
 
 Json data is loaded using snowsql into internal user stage and loaded into tables
 
-carried transformation
+Skills I utilised/ Practiced 
+manipulating semi-structured data
+copy commands
+Loading via snow CLI
+
