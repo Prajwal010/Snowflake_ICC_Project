@@ -229,7 +229,7 @@ where match_type_number = 4667;
 
 
 
---Player Clean Table (learning)
+-- Player Clean Table 
 
 create or replace table player_clean_tbl as 
 select 
@@ -245,10 +245,12 @@ lateral flatten (input => rcm.info:players) p,
 lateral flatten (input => p.value) team;
 
 
--- Lets desc taole
+-- Lets desc table
 desc table cricket.clean.player_clean_tbl;
 
--- add not null and fk relationships|
+
+-- add not null constraint and foreign key relationships
+
 alter table cricket.clean.player_clean_tbl
 modify column match_type_number set not null;
 alter table cricket.clean.player_clean_tbl
@@ -260,7 +262,7 @@ modify column player_name set not null;
 alter table cricket.clean.match_detail_clean
 add constraint pk_match_type_number primary key (match_type_number);
 
---add foreign k
+--add foreign keys
 alter table cricket.clean.player_clean_tbl
 add constraint fk_match_id
 foreign key (match_type_number)
@@ -401,7 +403,7 @@ modify column batter set not null;
 alter table cricket.clean.delivery_clean_tbl
 modify column non_striker set not null;
 
---fk relationship|
+--fk relationship
 alter table cricket.clean.delivery_clean_tbl
 add constraint fk_delivery_match_id
 foreign key (match_type_number)
@@ -440,7 +442,7 @@ group by team_name;
 
 
 
----Fact & Dimension Table SQL Scripts
+---Creating Fact & Dimension Table SQL Scripts
 use database cricket;
 use schema consumption;
 
