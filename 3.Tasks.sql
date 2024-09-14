@@ -3,7 +3,7 @@ create or replace stream cricket.raw.for_match_stream on table cricket.raw.match
 create or replace stream cricket.raw.for_player_stream on table cricket.raw.match_raw_tbl append_only = true;
 create or replace stream cricket.raw.for_delivery_stream on table cricket.raw.match_raw_tbl append_only = true;
 
--- step-2: Creating a task that runs every 5min to load json data into raw layer.
+-- step-2: Creating a task that runs every 5 minutes to load json data into raw layer.
 create or replace task cricket.raw.Load_json_to_raw
 warehouse = 'COMPUTE_WH'
 schedule = '5 minute'
@@ -75,7 +75,7 @@ cricket.raw.for_match_stream;
 
 
 
---Step-4: creating a child task after match data is populated|
+--Step-4: creating a child task after match data is populated
 create or replace task cricket.raw.Load_to_clean_player
 warehouse = "COMPUTE_WH"
     after cricket.raw.Load_to_clean_match
@@ -192,7 +192,7 @@ select venue_name, city from cricket.consumption.venue_dim;
 --step 9
 
 
--- Step-9: populate the fact table]
+-- Step-9: populate the fact tables
 
 -- Replace "COMPUTE_WH" with the actual name of your warehouse
 create or replace task cricket.raw.Load_match_fact
@@ -265,7 +265,7 @@ select a.* from (
 
 
 --step 10
--- Replace 'COMPUTE_WН' with the actual name of your warehouse
+
 create or replace task cricket.raw.Load_delivery_fact
 warehouse = "COMPUTE_WН"
 after cricket.raw.load_match_fact
